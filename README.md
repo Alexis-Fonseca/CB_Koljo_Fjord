@@ -88,5 +88,10 @@ Koljö Fjord Samples:
 
 ### 1. Preprocessing and trimming 
 
+#### 1.1 Check reads quality report using fastQC program: FastQC V 0.11.9 (https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
+        > mkdir fastQC_OUT
+        > fastqc *_001.fastq.gz -t 15
+
 ### 2. 
 
