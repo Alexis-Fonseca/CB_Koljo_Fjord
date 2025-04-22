@@ -114,3 +114,4 @@ Koljö Fjord Samples:
              trimmomatic PE -threads 80 -phred33 $r1 $r2 ${r1/_trimmed_L005_R1_001.fastq.gz/_trimmed_R1.PwU.qtrim.fastq.gz} ${r1/_trimmed_L005_R1_001.fastq.gz/_trimmed_R1.unpaired.qtrim.fastq.gz} ${r2/_trimmed_L005_R2_001.fastq.gz/_trimmed_R2.PwU.qtrim.fastq.gz} ${r2/_trimmed_L005_R2_001.fastq.gz/_trimmed_R2.unpaired.qtrim.fastq.gz} LEADING:20 TRAILING:20 MINLEN:80 ILLUMINACLIP:/proj/naiss2023-23-559/nobackup/trimmomatic_adapters/NexteraPE-PE.fa:2:30:7
              done
 
+**Check the trimmed libraries with FastQCQ and MultiQC**
