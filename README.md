@@ -96,13 +96,19 @@ Koljö Fjord Samples:
 
 #### 1.3 Trimming and removing adapters: Illumina universal adapters: CutAdpat v4.5 (https://cutadapt.readthedocs.io/en/stable/) and Trimmomatic (http://www.usadellab.org/cms/?page=trimmomatic)
 - Cutadapt v4.5
-        
-        > for file in *_L005_R1_001.fastq.gz; do
+          > for file in *_L005_R1_001.fastq.gz; do
           # Get the base name of the file without the _R1.fastq suffix
           base=${file%_L005_R1_001.fastq.gz}
 
         # Run cutadapt on the paired end files and save the output files with the trimmed suffix
           cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT --cores 30 --poly-a -o ${base}_trimmed_L005_R1_001.fastq.gz -p ${base}_trimmed_L005_R2_001.fastq.gz ${base}_L005_R1_001.fastq.gz ${base}_L005_R2_001.fastq.gz
 
-        done
+          done
+ 
+ - Trimmomatic v0.39
+           > for f in *_trimmed_L005_R1_001.fastq.gz; do
+             r1=$f; r2=${f/_trimmed_L005_R1_001.fastq.gz/_trimmed_L005_R2_001.fastq.gz}
+
+             trimmomatic PE -threads 80 -phred33 $r1 $r2 ${r1/_trimmed_L005_R1_001.fastq.gz/_trimmed_R1.PwU.qtrim.fastq.gz} ${r1/_trimmed_L005_R1_001.fastq.gz/_trimmed_R1.unpaired.qtrim.fastq.gz} ${r2/_trimmed_L005_R2_001.fastq.gz/_trimmed_R2.PwU.qtrim.fastq.gz} ${r2/_trimmed_L005_R2_001.fastq.gz/_trimmed_R2.unpaired.qtrim.fastq.gz} LEADING:20 TRAILING:20 MINLEN:80 ILLUMINACLIP:/proj/naiss2023-23-559/nobackup/trimmomatic_adapters/NexteraPE-PE.fa:2:30:7
+             done
 
