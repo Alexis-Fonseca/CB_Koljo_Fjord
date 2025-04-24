@@ -125,14 +125,14 @@ The raw data is availabe at: https://www.ncbi.nlm.nih.gov/bioproject/?term=(PRJN
 
  - SILVA database (silva-bac-16s-id90.fasta; Kopylova et al., 2012) as reference.
 
-   	> sortmerna -in my file
+   		> sortmerna -in my file
    	
 #### 3.2. Determine taxonomic composition
  - Programs: Kraken2 and Bracken.
  - Using SILVA 138 SSU (June 2024) database as reference.
 
-  	> kraken2 -in 
-   	> bracken -in 
+  		> kraken2 -in 
+   		> bracken -in 
 
 #### 3.3 Further analysis: Cable bacteria determination by assembly of rRNA sequences
 
@@ -140,5 +140,5 @@ Cable bacteria abundance was further analysed in Koljö Fjord, assembling the rR
 
 - Assembly rRNA sequences (all the rRNA files from SortMeRNA concatenated in the file P30612_129_16S_rRNA_FINAL.fasta.gz)
   
-  	> rnaspades.py -s P30612_129_16S_rRNA_FINAL.fasta.gz -o spades_129_20-22_16S --meta --threads 16
+  		> rnaspades.py -s P30612_129_16S_rRNA_FINAL.fasta.gz -o spades_129_20-22_16S --meta --threads 16
 
