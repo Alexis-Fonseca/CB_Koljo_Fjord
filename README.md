@@ -125,18 +125,20 @@ The raw data is availabe at: https://www.ncbi.nlm.nih.gov/bioproject/?term=(PRJN
 
  - SILVA database (silva-bac-16s-id90.fasta; Kopylova et al., 2012) as reference.
 
-   >
-   >
+   	> sortmerna -in my file
+   	
 #### 3.2. Determine taxonomic composition
  - Programs: Kraken2 and Bracken.
  - Using SILVA 138 SSU (June 2024) database as reference.
 
-   >
-   > 
+  	> kraken2 -in 
+   	> bracken -in 
 
 #### 3.3 Further analysis: Cable bacteria determination by assembly of rRNA sequences
 
 Cable bacteria abundance was further analysed in Koljö Fjord, assembling the rRNA gene reads (obtained by SortMeRNA ) using rnaSPAdes (spades V 4.0.0) with “-k 31,55,77,97,127.” 16S rRNA gene sequences were identified with Barrnap V0.9 and aligned against the SILVA_138.1_SSURef_NR99 database, using 44 Ca. Electrothrix spp. 16S rRNA gene sequences, using BLASTN V2.15.0+ with “-max_target_seqs 1.” 16S rRNA gene sequence matching with Ca. Electrothrix spp. with >90% identity, e-value < 1x10e-10 and query cover > 95% were selected and quantified using coverM with the mode “contig” and method “-m  tpm,” previous mapping of original rRNA gene reads against the assembled and annotated Ca. Electrothrix spp. 16S rRNA sequences. Thirteen partial 16S rRNA Ca. Electrothrix gene sequences ranging from 411 bp to 941 base pairs (bp) were obtained.
 
-
+- Assembly rRNA sequences (all the rRNA files from SortMeRNA concatenated in the file P30612_129_16S_rRNA_FINAL.fasta.gz)
+  
+  	> rnaspades.py -s P30612_129_16S_rRNA_FINAL.fasta.gz -o spades_129_20-22_16S --meta --threads 16
 
