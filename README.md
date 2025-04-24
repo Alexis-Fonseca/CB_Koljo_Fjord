@@ -97,7 +97,7 @@ The raw data is availabe at: https://www.ncbi.nlm.nih.gov/bioproject/?term=(PRJN
 #### 1.3 Trimming and removing adapters: Illumina universal adapters: CutAdpat v4.5 (https://cutadapt.readthedocs.io/en/stable/) and Trimmomatic (http://www.usadellab.org/cms/?page=trimmomatic)
 - Cutadapt v4.5
   
-          > for file in *_L005_R1_001.fastq.gz; do
+	> for file in *_L005_R1_001.fastq.gz; do
           # Get the base name of the file without the _R1.fastq suffix
           base=${file%_L005_R1_001.fastq.gz}
 
