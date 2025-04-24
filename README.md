@@ -10,44 +10,44 @@ The raw data is availabe at: https://www.ncbi.nlm.nih.gov/bioproject/?term=(PRJN
 
 *Kristineberg Bay samples:*
 
-        -P30612_101_S332_L005_R1_001.fastq.gz
-        -P30612_101_S332_L005_R2_001.fastq.gz
-        -P30612_102_S333_L005_R1_001.fastq.gz
-        -P30612_102_S333_L005_R2_001.fastq.gz
-        -P30612_103_S334_L005_R1_001.fastq.gz
-        -P30612_103_S334_L005_R2_001.fastq.gz
-        -P30612_104_S335_L005_R1_001.fastq.gz
-        -P30612_104_S335_L005_R2_001.fastq.gz
-        -P30612_105_S336_L005_R1_001.fastq.gz
-        -P30612_105_S336_L005_R2_001.fastq.gz
-        -P30612_106_S337_L005_R1_001.fastq.gz
-        -P30612_106_S337_L005_R2_001.fastq.gz
-        -P30612_107_S338_L005_R1_001.fastq.gz
-        -P30612_107_S338_L005_R2_001.fastq.gz
-        -P30612_108_S339_L005_R1_001.fastq.gz
-        -P30612_108_S339_L005_R2_001.fastq.gz
-        -P30612_109_S340_L005_R1_001.fastq.gz
-        -P30612_109_S340_L005_R2_001.fastq.gz
-        -P30612_110_S341_L005_R1_001.fastq.gz
-        -P30612_110_S341_L005_R2_001.fastq.gz
-        -P30612_111_S342_L005_R1_001.fastq.gz
-        -P30612_111_S342_L005_R2_001.fastq.gz
-        -P30612_112_S343_L005_R1_001.fastq.gz
-        -P30612_112_S343_L005_R2_001.fastq.gz
-        -P30612_113_S344_L005_R1_001.fastq.gz
-        -P30612_113_S344_L005_R2_001.fastq.gz
-        -P30612_114_S345_L005_R1_001.fastq.gz
-        -P30612_114_S345_L005_R2_001.fastq.gz
-        -P30612_115_S346_L005_R1_001.fastq.gz
-        -P30612_115_S346_L005_R2_001.fastq.gz
-        -P30612_116_S347_L005_R1_001.fastq.gz
-        -P30612_116_S347_L005_R2_001.fastq.gz
-        -P30612_117_S348_L005_R1_001.fastq.gz
-        -P30612_117_S348_L005_R2_001.fastq.gz
-        -P30612_118_S349_L005_R1_001.fastq.gz
-        -P30612_118_S349_L005_R2_001.fastq.gz
+  -P30612_101_S332_L005_R1_001.fastq.gz
+  -P30612_101_S332_L005_R2_001.fastq.gz
+  -P30612_102_S333_L005_R1_001.fastq.gz
+  -P30612_102_S333_L005_R2_001.fastq.gz
+  -P30612_103_S334_L005_R1_001.fastq.gz
+  -P30612_103_S334_L005_R2_001.fastq.gz
+  -P30612_104_S335_L005_R1_001.fastq.gz
+  -P30612_104_S335_L005_R2_001.fastq.gz
+  -P30612_105_S336_L005_R1_001.fastq.gz
+  -P30612_105_S336_L005_R2_001.fastq.gz
+  -P30612_106_S337_L005_R1_001.fastq.gz
+  -P30612_106_S337_L005_R2_001.fastq.gz
+  -P30612_107_S338_L005_R1_001.fastq.gz
+  -P30612_107_S338_L005_R2_001.fastq.gz
+  -P30612_108_S339_L005_R1_001.fastq.gz
+  -P30612_108_S339_L005_R2_001.fastq.gz
+  -P30612_109_S340_L005_R1_001.fastq.gz
+  -P30612_109_S340_L005_R2_001.fastq.gz
+  -P30612_110_S341_L005_R1_001.fastq.gz
+  -P30612_110_S341_L005_R2_001.fastq.gz
+  -P30612_111_S342_L005_R1_001.fastq.gz
+  -P30612_111_S342_L005_R2_001.fastq.gz
+  -P30612_112_S343_L005_R1_001.fastq.gz
+  -P30612_112_S343_L005_R2_001.fastq.gz
+  -P30612_113_S344_L005_R1_001.fastq.gz
+  -P30612_113_S344_L005_R2_001.fastq.gz
+  -P30612_114_S345_L005_R1_001.fastq.gz
+  -P30612_114_S345_L005_R2_001.fastq.gz
+  -P30612_115_S346_L005_R1_001.fastq.gz
+  -P30612_115_S346_L005_R2_001.fastq.gz
+  -P30612_116_S347_L005_R1_001.fastq.gz
+  -P30612_116_S347_L005_R2_001.fastq.gz
+  -P30612_117_S348_L005_R1_001.fastq.gz
+  -P30612_117_S348_L005_R2_001.fastq.gz
+  -P30612_118_S349_L005_R1_001.fastq.gz
+  -P30612_118_S349_L005_R2_001.fastq.gz
 
-Koljö Fjord Samples:
+*Koljö Fjord Samples:*
 
         -P30612_119_S350_L005_R1_001.fastq.gz
         -P30612_119_S350_L005_R2_001.fastq.gz
@@ -115,3 +115,28 @@ Koljö Fjord Samples:
              done
 
 **Check the trimmed libraries with FastQCQ and MultiQC**
+
+### 2. Merging trimmed reads using FLASH V 1.2.11 
+
+
+### 3. Taxonomic classification by rRNA
+
+#### 3.1. rRNA (SSU rRNA) reads extraction with SortMeRNA 4.3.6
+
+ - SILVA database (silva-bac-16s-id90.fasta; Kopylova et al., 2012) as reference.
+
+   >
+   >
+#### 3.2. Determine taxonomic composition
+ - Programs: Kraken2 and Bracken.
+ - Using SILVA 138 SSU (June 2024) database as reference.
+
+   >
+   > 
+
+#### 3.3 Further analysis: Cable bacteria determination by assembly of rRNA sequences
+
+Cable bacteria abundance was further analysed in Koljö Fjord, assembling the rRNA gene reads (obtained by SortMeRNA ) using rnaSPAdes (spades V 4.0.0) with “-k 31,55,77,97,127.” 16S rRNA gene sequences were identified with Barrnap V0.9 and aligned against the SILVA_138.1_SSURef_NR99 database, using 44 Ca. Electrothrix spp. 16S rRNA gene sequences, using BLASTN V2.15.0+ with “-max_target_seqs 1.” 16S rRNA gene sequence matching with Ca. Electrothrix spp. with >90% identity, e-value < 1x10e-10 and query cover > 95% were selected and quantified using coverM with the mode “contig” and method “-m  tpm,” previous mapping of original rRNA gene reads against the assembled and annotated Ca. Electrothrix spp. 16S rRNA sequences. Thirteen partial 16S rRNA Ca. Electrothrix gene sequences ranging from 411 bp to 941 base pairs (bp) were obtained.
+
+
+
