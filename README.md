@@ -126,42 +126,43 @@ The raw data is availabe at: https://www.ncbi.nlm.nih.gov/bioproject/?term=(PRJN
 
 *Results:*
 	RESULTS:
-		[FLASH]     Percent combined: 44.92%
-		[FLASH]     Percent combined: 45.16%
-		[FLASH]     Percent combined: 48.80%
-		[FLASH]     Percent combined: 49.98%
-		[FLASH]     Percent combined: 46.30%
-		[FLASH]     Percent combined: 47.59%
-		[FLASH]     Percent combined: 51.16%
-		[FLASH]     Percent combined: 47.28%
-		[FLASH]     Percent combined: 42.00%
-		[FLASH]     Percent combined: 49.53%
-		[FLASH]     Percent combined: 55.20%
-		[FLASH]     Percent combined: 63.08%
-		[FLASH]     Percent combined: 49.70%
-		[FLASH]     Percent combined: 49.84%
-		[FLASH]     Percent combined: 49.23%
-		[FLASH]     Percent combined: 53.91%
-		[FLASH]     Percent combined: 42.71%
-		[FLASH]     Percent combined: 48.94%
-		[FLASH]     Percent combined: 71.26%
-		[FLASH]     Percent combined: 57.87%
-		[FLASH]     Percent combined: 62.02%
-		[FLASH]     Percent combined: 53.83%
-		[FLASH]     Percent combined: 68.32%
-		[FLASH]     Percent combined: 54.73%
-		[FLASH]     Percent combined: 51.57%
-		[FLASH]     Percent combined: 58.96%
-		[FLASH]     Percent combined: 50.74%
-		[FLASH]     Percent combined: 54.48%
-		[FLASH]     Percent combined: 50.71%
-		[FLASH]     Percent combined: 52.03%
-		[FLASH]     Percent combined: 70.62%
-		[FLASH]     Percent combined: 56.69%
-		[FLASH]     Percent combined: 68.77%
-		[FLASH]     Percent combined: 42.19%
-		[FLASH]     Percent combined: 59.51%
-		[FLASH]     Percent combined: 73.29%
+ 
+		- [FLASH]     Percent combined: 44.92%
+		- [FLASH]     Percent combined: 45.16%
+		- [FLASH]     Percent combined: 48.80%
+		- [FLASH]     Percent combined: 49.98%
+		- [FLASH]     Percent combined: 46.30%
+		- [FLASH]     Percent combined: 47.59%
+		- [FLASH]     Percent combined: 51.16%
+		- [FLASH]     Percent combined: 47.28%
+		- [FLASH]     Percent combined: 42.00%
+		- [FLASH]     Percent combined: 49.53%
+		- [FLASH]     Percent combined: 55.20%
+		- [FLASH]     Percent combined: 63.08%
+		- [FLASH]     Percent combined: 49.70%
+		- [FLASH]     Percent combined: 49.84%
+		- [FLASH]     Percent combined: 49.23%
+		- [FLASH]     Percent combined: 53.91%
+		- [FLASH]     Percent combined: 42.71%
+		- [FLASH]     Percent combined: 48.94%
+		- [FLASH]     Percent combined: 71.26%
+		- [FLASH]     Percent combined: 57.87%
+		- [FLASH]     Percent combined: 62.02%
+		- [FLASH]     Percent combined: 53.83%
+		- [FLASH]     Percent combined: 68.32%
+		- [FLASH]     Percent combined: 54.73%
+		- [FLASH]     Percent combined: 51.57%
+		- [FLASH]     Percent combined: 58.96%
+		- [FLASH]     Percent combined: 50.74%
+		- [FLASH]     Percent combined: 54.48%
+		- [FLASH]     Percent combined: 50.71%
+		- [FLASH]     Percent combined: 52.03%
+		- [FLASH]     Percent combined: 70.62%
+		- [FLASH]     Percent combined: 56.69%
+		- [FLASH]     Percent combined: 68.77%
+		- [FLASH]     Percent combined: 42.19%
+		- [FLASH]     Percent combined: 59.51%
+		- [FLASH]     Percent combined: 73.29%
 
 The merged and unmerged sequences are used separately to avoid data waste. So, we are including all sequences.
 
@@ -239,23 +240,23 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
 
  - SILVA database (silva-bac-16s-id90.fasta; Kopylova et al., 2012) as reference.
 
-   #!/bin/bash -l
+	> #!/bin/bash -l
 
-#SBATCH -A naiss2023-22-1280
-#SBATCH -p node
-#SBATCH -n 1
-#SBATCH -t 03-00:00:00
-#SBATCH -J sortKritine
+	#SBATCH -A naiss2023-22-1280
+	#SBATCH -p node
+	#SBATCH -n 1
+	#SBATCH -t 03-00:00:00
+	#SBATCH -J sortKritine
 
-module load bioinfo-tools
-module load SortMeRNA/4.3.4
+	module load bioinfo-tools
+	module load SortMeRNA/4.3.4
 
-for f in *fastq.gz; do
-        r1=$f;
+	for f in *fastq.gz; do
+        	r1=$f;
 
-        sortmerna --ref $SORTMERNA_DBS/rRNA_databases/silva-bac-16s-id90.fasta --reads $r1 --fastx -threads 16 --workdir ${r1/fastq.gz/sortmerna_workdir_16SrRNA}/ --align
-    ed ${r1/fastq.gz/aligned_16S_rRNA}
-done
+        	sortmerna --ref $SORTMERNA_DBS/rRNA_databases/silva-bac-16s-id90.fasta --reads $r1 --fastx -threads 16 --workdir ${r1/fastq.gz/sortmerna_workdir_16SrRNA}/ --align
+    		ed ${r1/fastq.gz/aligned_16S_rRNA}
+		done
 
    	
 #### 3.2. Determine taxonomic composition
@@ -263,20 +264,20 @@ done
  - Programs: Kraken2 and Bracken.
  - Using SILVA 138 SSU (June 2024) database as reference.
 
-module load bioinfo-tools
-module load Kraken2/2.1.2-20211210-4f648f5
+		module load bioinfo-tools
+		module load Kraken2/2.1.2-20211210-4f648f5
 
-for file in *_rRNA_FINAL.fasta.gz; do
+		for file in *_rRNA_FINAL.fasta.gz; do
 
-kraken2 --db /home/alfon/Kraken2/Silva_138_SSU_Jun32024 --threads 15 --confidence 0.0 -use-names --gzip-compressed --report-zero-counts --output $file"_Kraken_db-Silva_16S" --report $file"_kraken2_Silva16S_report.txt" $file; done
+			kraken2 --db /home/alfon/Kraken2/Silva_138_SSU_Jun32024 --threads 15 --confidence 0.0 -use-names --gzip-compressed --report-zero-counts --output $file"_Kraken_db-Silva_16S" --report 			$file"_kraken2_Silva16S_report.txt" $file; done
 
 **bracken**
 
-module load bioinfo-tools
-module load Kraken2/2.1.2-20211210-4f648f5
+		module load bioinfo-tools
+		module load Kraken2/2.1.2-20211210-4f648f5
 
-for r in *_report.txt; do /proj/naiss2023-23-559/nobackup/alexis/Bracken/bracken -d /home/alfon/Kraken2/Silva_138_SSU_Jun32024 -i $r -o ${r/_report.txt/_bracken_OUT.txt} -r 200 -
-l G -t 15; done
+			for r in *_report.txt; do /proj/naiss2023-23-559/nobackup/alexis/Bracken/bracken -d /home/alfon/Kraken2/Silva_138_SSU_Jun32024 -i $r -o ${r/_report.txt/_bracken_OUT.txt} -r 200 -
+			l G -t 15; done
 
 
 #### 3.3 Further analysis: Cable bacteria determination by assembly of rRNA sequences
