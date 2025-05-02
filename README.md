@@ -118,8 +118,125 @@ The raw data is availabe at: https://www.ncbi.nlm.nih.gov/bioproject/?term=(PRJN
 
 ### 2. Merging trimmed reads using FLASH V 1.2.11 
 
+**taking the trimmed files as input (patter "_trimmed_R1.PwU.qtrim.fastq.g")**
+
+	  > for f in *_trimmed_R1.PwU.qtrim.fastq.gz; do r1=$f; r2=${f/_trimmed_R1.PwU.qtrim.fastq.gz/_trimmed_R2.PwU.qtrim.fastq.gz}
+	    flash -t 60 -m 4 -M 300 --allow-outies $r1 $r2 -o FLASH/${f/_trimmed_L005_R1_001.fastq.gz/merged};
+            done
+
+Results:
+	RESULTS:
+	[FLASH]     Percent combined: 44.92%
+	[FLASH]     Percent combined: 45.16%
+	[FLASH]     Percent combined: 48.80%
+	[FLASH]     Percent combined: 49.98%
+	[FLASH]     Percent combined: 46.30%
+	[FLASH]     Percent combined: 47.59%
+	[FLASH]     Percent combined: 51.16%
+	[FLASH]     Percent combined: 47.28%
+	[FLASH]     Percent combined: 42.00%
+	[FLASH]     Percent combined: 49.53%
+	[FLASH]     Percent combined: 55.20%
+	[FLASH]     Percent combined: 63.08%
+	[FLASH]     Percent combined: 49.70%
+	[FLASH]     Percent combined: 49.84%
+	[FLASH]     Percent combined: 49.23%
+	[FLASH]     Percent combined: 53.91%
+	[FLASH]     Percent combined: 42.71%
+	[FLASH]     Percent combined: 48.94%
+	[FLASH]     Percent combined: 71.26%
+	[FLASH]     Percent combined: 57.87%
+	[FLASH]     Percent combined: 62.02%
+	[FLASH]     Percent combined: 53.83%
+	[FLASH]     Percent combined: 68.32%
+	[FLASH]     Percent combined: 54.73%
+	[FLASH]     Percent combined: 51.57%
+	[FLASH]     Percent combined: 58.96%
+	[FLASH]     Percent combined: 50.74%
+	[FLASH]     Percent combined: 54.48%
+	[FLASH]     Percent combined: 50.71%
+	[FLASH]     Percent combined: 52.03%
+	[FLASH]     Percent combined: 70.62%
+	[FLASH]     Percent combined: 56.69%
+	[FLASH]     Percent combined: 68.77%
+	[FLASH]     Percent combined: 42.19%
+	[FLASH]     Percent combined: 59.51%
+	[FLASH]     Percent combined: 73.29%
+
+The merged and unmerged sequences are used separately to avoid data waste. So, we are including all sequences.
+
+Run SortmeRNA separately: using the merged files as a single file and in paired-end mode the unassembled files, and then concatenating both results for each sample.
 
 ### 3. Taxonomic classification by rRNA
+
+#### 3.2. Dividing the FLASH output files in two folders:  ExtendedFrags and No_combined. 
+
+    The assembled files were placed into the ExtendedFrags folder
+    
+    
+        P30612_102_S333_trimmed_R1.PwU.qtrim.fastq.gz.extendedFrags.fastq
+        P30612_103_S334_trimmed_R1.PwU.qtrim.fastq.gz.extendedFrags.fastq
+        ...
+        
+   **To speed up the next SortmeRNA process I splitted these files:**
+   
+   
+   
+##########   Code  ##############
+    
+    #!/bin/bash -l
+
+    #SBATCH -A naiss2024-22-947
+    #SBATCH -p shared
+    #SBATCH -n 20
+    #SBATCH -t 06:00:00
+    #SBATCH -J pigz_Kristineberg
+
+    module load bioinfo-tools
+    module load pigz/2.8
+
+    ##### Split files and compress outputs
+
+    # Input directory containing fastq files
+    input_dir="."
+
+    # Output directory for compressed files
+    output_dir="compressed_files"
+
+    # Create the output directory if it doesn't exist
+    mkdir -p "$output_dir"
+
+    # Loop through each fastq file in the input directory
+    for input_file in "$input_dir"/*_trimmed_R1.PwU.qtrim.fastq.gz.extendedFrags.fastq; do
+        # Extract the sample name from the input file (e.g., P29881_101)
+        sample_name=$(basename "$input_file" | cut -d'_' -f1-2)
+
+        # Split the input file into smaller files with a custom suffix length to ensure unique names
+        split -l 100000000 -d --additional-suffix=.fastq "$input_file" "${sample_name}_split_"
+
+        # Compress the split files using pigz
+        for split_file in "${sample_name}_split_"*.fastq; do
+            pigz -p 20 "$split_file"
+        done
+
+        # Move the compressed files to the output directory
+        mv "${sample_name}_split_"*.gz "$output_dir"
+    done
+
+    echo "Fastq files split, compressed, and moved to the output directory."
+###############################################################################################################
+
+    
+    
+**The folder "No_combined" contains:**
+
+                    P30612_101_S332_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq
+                    P30612_101_S332_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_2.fastq
+                    P30612_102_S333_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq
+                    P30612_102_S333_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_2.fastq
+    
+    
+**This will not be splitted and used as imput directly to SortmeRNA**
 
 #### 3.1. rRNA (SSU rRNA) reads extraction with SortMeRNA 4.3.6
 
