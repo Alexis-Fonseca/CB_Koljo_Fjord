@@ -286,15 +286,15 @@ Cable bacteria abundance was further analysed in Koljö Fjord, assembling the rR
 
 #### 4.1. Assembly rRNA sequences (all the rRNA files from SortMeRNA concatenated in the file P30612_129_16S_rRNA_FINAL.fasta.gz)
   
-  			> rnaspades.py -s P30612_129_16S_rRNA_FINAL.fasta.gz -o spades_129_20-22_16S --meta --threads 16
+  		rnaspades.py -s P30612_129_16S_rRNA_FINAL.fasta.gz -o spades_129_20-22_16S --meta --threads 16
 
 #### 4.2.  Identify 16S rRNA Contigs
 After assembly, 16S rRNA sequences were identified and extracted from the contigs.fasta file using Barrnap, a tool specifically designed to identify rRNA genes.
 
-			module load bioinfo-tools
-			module load barrnap/0.9
+		module load bioinfo-tools
+		module load barrnap/0.9
 
-			barrnap --threads 8 transcripts.fasta > 129_20-22_16S_rRNA_sequences.gff
+		barrnap --threads 8 transcripts.fasta > 129_20-22_16S_rRNA_sequences.gff
 
    Retaining only the 16S rRNA (removing 5S or 23S if still present)
 
@@ -302,22 +302,23 @@ After assembly, 16S rRNA sequences were identified and extracted from the contig
 
 To extract sequences from the GFF file, use bedtools:
 
-			bedtools getfasta -fi transcripts.fasta -bed 16S_rRNA_sequences.gff -fo ALL_Koljo_16S_rRNA_assembled.fasta.fasta
+		bedtools getfasta -fi transcripts.fasta -bed 16S_rRNA_sequences.gff -fo ALL_Koljo_16S_rRNA_assembled.fasta.fasta
 
 #### 4.4. Annotation of Ca. Electrothrix (cable bacteria)
-Annotation of the 16S rRNA sequences using the SILVA_138.1_SSURef_NR99 and 44 extra cable bacteria 16S rRNA sequences from NCBI. Alignin with BLASTN:
+16S rRNA sequences were annotated using the SILVA_138.1_SSURef_NR99 and augmented with 33 16S rRNA gene sequences of different *Ca*. Electrothrix from NCBI (Document Cable bacteria reference). 
+**Alignment with BLASTN**
 
 
-			#SBATCH -A naiss2023-22-1141
-			#SBATCH -p node
-			#SBATCH -n 1
-			#SBATCH -t 20:00:00
-			#SBATCH -J Blast
+		#SBATCH -A naiss2023-22-1141
+		#SBATCH -p node
+		#SBATCH -n 1
+		#SBATCH -t 20:00:00
+		#SBATCH -J Blast
 
-			module load bioinfo-tools
-			module load blast/2.15.0+
+		module load bioinfo-tools
+		module load blast/2.15.0+
 
-			blastn -task megablast -query ALL_Koljo_16S_rRNA_assembled.fasta -db SILVA_138.1_SSURef_NR99_PLUS_44_CB_Bacteria_no_cyano.fasta -out All_16S_Blast_SILVA_CB.txt -outfmt "6  qseqid 			length qlen sseqid evalue bitscore pident nident qcovs qstart qend" -max_target_seqs 1 -num_threads 20
+		blastn -task megablast -query ALL_Koljo_16S_rRNA_assembled.fasta -db SILVA_138.1_SSURef_NR99_PLUS_44_CB_Bacteria_no_cyano.fasta -out All_16S_Blast_SILVA_CB.txt -outfmt "6  qseqid 			length qlen sseqid evalue bitscore pident nident qcovs qstart qend" -max_target_seqs 1 -num_threads 20
 
 
 CONTINUE HERE
@@ -339,10 +340,9 @@ Using the smr_v4.3_default_db.fasta file as reference. The following is the mode
     		module load SortMeRNA/4.3.4
 
     		for f in *_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq; do
-        		r1=$f; r2=${f/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_2.fastq}
+        	r1=$f; r2=${f/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_2.fastq}
 
-        		sortmerna --ref  $SORTMERNA_DBS/rRNA_databases/smr_v4.3_default_db.fasta --idx-dir $SORTMERNA_DBS/index/ --reads $r1 --reads $r2 --fastx --out2 --paired_out -threads 50 --workdir 			${r1/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/sortmerna_workdir_Non_rRNA}/ --other ${r1/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/other_non-rRNA}
-
-    			done
+        	sortmerna --ref  $SORTMERNA_DBS/rRNA_databases/smr_v4.3_default_db.fasta --idx-dir $SORTMERNA_DBS/index/ --reads $r1 --reads $r2 --fastx --out2 --paired_out -threads 50 --workdir 			${r1/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/sortmerna_workdir_Non_rRNA}/ --other ${r1/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/other_non-rRNA}
+	 	done
 
 
