@@ -124,44 +124,44 @@ The raw data is availabe at: https://www.ncbi.nlm.nih.gov/bioproject/?term=(PRJN
 	    flash -t 60 -m 4 -M 300 --allow-outies $r1 $r2 -o FLASH/${f/_trimmed_L005_R1_001.fastq.gz/merged};
             done
 
-Results:
+*Results:*
 	RESULTS:
-	[FLASH]     Percent combined: 44.92%
-	[FLASH]     Percent combined: 45.16%
-	[FLASH]     Percent combined: 48.80%
-	[FLASH]     Percent combined: 49.98%
-	[FLASH]     Percent combined: 46.30%
-	[FLASH]     Percent combined: 47.59%
-	[FLASH]     Percent combined: 51.16%
-	[FLASH]     Percent combined: 47.28%
-	[FLASH]     Percent combined: 42.00%
-	[FLASH]     Percent combined: 49.53%
-	[FLASH]     Percent combined: 55.20%
-	[FLASH]     Percent combined: 63.08%
-	[FLASH]     Percent combined: 49.70%
-	[FLASH]     Percent combined: 49.84%
-	[FLASH]     Percent combined: 49.23%
-	[FLASH]     Percent combined: 53.91%
-	[FLASH]     Percent combined: 42.71%
-	[FLASH]     Percent combined: 48.94%
-	[FLASH]     Percent combined: 71.26%
-	[FLASH]     Percent combined: 57.87%
-	[FLASH]     Percent combined: 62.02%
-	[FLASH]     Percent combined: 53.83%
-	[FLASH]     Percent combined: 68.32%
-	[FLASH]     Percent combined: 54.73%
-	[FLASH]     Percent combined: 51.57%
-	[FLASH]     Percent combined: 58.96%
-	[FLASH]     Percent combined: 50.74%
-	[FLASH]     Percent combined: 54.48%
-	[FLASH]     Percent combined: 50.71%
-	[FLASH]     Percent combined: 52.03%
-	[FLASH]     Percent combined: 70.62%
-	[FLASH]     Percent combined: 56.69%
-	[FLASH]     Percent combined: 68.77%
-	[FLASH]     Percent combined: 42.19%
-	[FLASH]     Percent combined: 59.51%
-	[FLASH]     Percent combined: 73.29%
+		[FLASH]     Percent combined: 44.92%
+		[FLASH]     Percent combined: 45.16%
+		[FLASH]     Percent combined: 48.80%
+		[FLASH]     Percent combined: 49.98%
+		[FLASH]     Percent combined: 46.30%
+		[FLASH]     Percent combined: 47.59%
+		[FLASH]     Percent combined: 51.16%
+		[FLASH]     Percent combined: 47.28%
+		[FLASH]     Percent combined: 42.00%
+		[FLASH]     Percent combined: 49.53%
+		[FLASH]     Percent combined: 55.20%
+		[FLASH]     Percent combined: 63.08%
+		[FLASH]     Percent combined: 49.70%
+		[FLASH]     Percent combined: 49.84%
+		[FLASH]     Percent combined: 49.23%
+		[FLASH]     Percent combined: 53.91%
+		[FLASH]     Percent combined: 42.71%
+		[FLASH]     Percent combined: 48.94%
+		[FLASH]     Percent combined: 71.26%
+		[FLASH]     Percent combined: 57.87%
+		[FLASH]     Percent combined: 62.02%
+		[FLASH]     Percent combined: 53.83%
+		[FLASH]     Percent combined: 68.32%
+		[FLASH]     Percent combined: 54.73%
+		[FLASH]     Percent combined: 51.57%
+		[FLASH]     Percent combined: 58.96%
+		[FLASH]     Percent combined: 50.74%
+		[FLASH]     Percent combined: 54.48%
+		[FLASH]     Percent combined: 50.71%
+		[FLASH]     Percent combined: 52.03%
+		[FLASH]     Percent combined: 70.62%
+		[FLASH]     Percent combined: 56.69%
+		[FLASH]     Percent combined: 68.77%
+		[FLASH]     Percent combined: 42.19%
+		[FLASH]     Percent combined: 59.51%
+		[FLASH]     Percent combined: 73.29%
 
 The merged and unmerged sequences are used separately to avoid data waste. So, we are including all sequences.
 
@@ -179,7 +179,6 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
         ...
         
    **To speed up the next SortmeRNA process I splitted these files:**
-   
    
    
 ##########   Code  ##############
@@ -224,9 +223,7 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
     done
 
     echo "Fastq files split, compressed, and moved to the output directory."
-###############################################################################################################
-
-    
+######################################################################################
     
 **The folder "No_combined" contains:**
 
@@ -234,7 +231,7 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
                     P30612_101_S332_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_2.fastq
                     P30612_102_S333_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq
                     P30612_102_S333_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_2.fastq
-    
+		    ...
     
 **This will not be splitted and used as imput directly to SortmeRNA**
 
@@ -242,14 +239,45 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
 
  - SILVA database (silva-bac-16s-id90.fasta; Kopylova et al., 2012) as reference.
 
-   		> sortmerna -in my file
+   #!/bin/bash -l
+
+#SBATCH -A naiss2023-22-1280
+#SBATCH -p node
+#SBATCH -n 1
+#SBATCH -t 03-00:00:00
+#SBATCH -J sortKritine
+
+module load bioinfo-tools
+module load SortMeRNA/4.3.4
+
+for f in *fastq.gz; do
+        r1=$f;
+
+        sortmerna --ref $SORTMERNA_DBS/rRNA_databases/silva-bac-16s-id90.fasta --reads $r1 --fastx -threads 16 --workdir ${r1/fastq.gz/sortmerna_workdir_16SrRNA}/ --align
+    ed ${r1/fastq.gz/aligned_16S_rRNA}
+done
+
    	
 #### 3.2. Determine taxonomic composition
+
  - Programs: Kraken2 and Bracken.
  - Using SILVA 138 SSU (June 2024) database as reference.
 
-  		> kraken2 -in 
-   		> bracken -in 
+module load bioinfo-tools
+module load Kraken2/2.1.2-20211210-4f648f5
+
+for file in *_rRNA_FINAL.fasta.gz; do
+
+kraken2 --db /home/alfon/Kraken2/Silva_138_SSU_Jun32024 --threads 15 --confidence 0.0 -use-names --gzip-compressed --report-zero-counts --output $file"_Kraken_db-Silva_16S" --report $file"_kraken2_Silva16S_report.txt" $file; done
+
+**bracken**
+
+module load bioinfo-tools
+module load Kraken2/2.1.2-20211210-4f648f5
+
+for r in *_report.txt; do /proj/naiss2023-23-559/nobackup/alexis/Bracken/bracken -d /home/alfon/Kraken2/Silva_138_SSU_Jun32024 -i $r -o ${r/_report.txt/_bracken_OUT.txt} -r 200 -
+l G -t 15; done
+
 
 #### 3.3 Further analysis: Cable bacteria determination by assembly of rRNA sequences
 
@@ -258,4 +286,28 @@ Cable bacteria abundance was further analysed in Koljö Fjord, assembling the rR
 - Assembly rRNA sequences (all the rRNA files from SortMeRNA concatenated in the file P30612_129_16S_rRNA_FINAL.fasta.gz)
   
   		> rnaspades.py -s P30612_129_16S_rRNA_FINAL.fasta.gz -o spades_129_20-22_16S --meta --threads 16
+
+
+### 4. Obtaining the non-rRNA sequences (mRNA) with SortMeRNA
+
+Using the smr_v4.3_default_db.fasta file as reference. The following is the mode to paired-end libraies ( Paired-end mode - notCombined reads). To the combined (to merged libraries the mode was single-end)
+
+    #!/bin/bash -l
+
+    #SBATCH -A naiss2024-22-947
+    #SBATCH -p shared
+    #SBATCH -n 50
+    #SBATCH -t 20:00:00
+    #SBATCH -J sortmerna_Krist2
+
+    module load bioinfo-tools
+    module load SortMeRNA/4.3.4
+
+    for f in *_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq; do
+        r1=$f; r2=${f/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_2.fastq}
+
+        sortmerna --ref  $SORTMERNA_DBS/rRNA_databases/smr_v4.3_default_db.fasta --idx-dir $SORTMERNA_DBS/index/ --reads $r1 --reads $r2 --fastx --out2 --paired_out -threads 50 --workdir ${r1/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/sortmerna_workdir_Non_rRNA}/ --other ${r1/_trimmed_R1.PwU.qtrim.fastq.gz.notCombined_1.fastq/other_non-rRNA}
+
+    done
+
 
