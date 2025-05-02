@@ -271,7 +271,7 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
 
 			kraken2 --db /home/alfon/Kraken2/Silva_138_SSU_Jun32024 --threads 15 --confidence 0.0 -use-names --gzip-compressed --report-zero-counts --output $file"_Kraken_db-Silva_16S" --report 			$file"_kraken2_Silva16S_report.txt" $file; done
 
-**bracken**
+ - **bracken**
 
 		module load bioinfo-tools
 		module load Kraken2/2.1.2-20211210-4f648f5
@@ -282,7 +282,7 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
 
 ### 4. Further analysis: Cable bacteria determination by assembly of rRNA sequences
 
-Cable bacteria abundance was further analysed in Koljö Fjord, assembling the rRNA gene reads (obtained by SortMeRNA ) using rnaSPAdes (spades V 4.0.0) with “-k 31,55,77,97,127.” 16S rRNA gene sequences were identified with Barrnap V0.9 and aligned against the SILVA_138.1_SSURef_NR99 database, using 44 Ca. Electrothrix spp. 16S rRNA gene sequences, using BLASTN V2.15.0+ with “-max_target_seqs 1.” 16S rRNA gene sequence matching with Ca. Electrothrix spp. with >90% identity, e-value < 1x10e-10 and query cover > 95% were selected and quantified using coverM with the mode “contig” and method “-m  tpm,” previous mapping of original rRNA gene reads against the assembled and annotated Ca. Electrothrix spp. 16S rRNA sequences. Thirteen partial 16S rRNA Ca. Electrothrix gene sequences ranging from 411 bp to 941 base pairs (bp) were obtained.
+Cable bacteria abundance was further analysed in Koljö Fjord, assembling the SSU rRNA sequences (obtained by SortMeRNA) using rnaSPAdes (spades V 4.0.0) with “-k 31,55,77,97,127.” 16S rRNA gene sequences were identified with Barrnap V0.9 and aligned against the SILVA_138.1_SSURef_NR99 database, augmented with 33 *Ca*. Electrothrix 16S rRNA gene sequences from NCBI, using BLASTN V2.15.0+ with “-max_target_seqs 1.” 16S rRNA gene sequences matching with *Ca*. Electrothrix with > 90% identity, e-value < 1x10e-10 and query cover > 95% were selected and quantified using coverM with the mode “contig” and method “-m  tpm,” (transcripts per million), previous mapping of original rRNA sequences against the assembled 16S rRNA. *Thirteen partial 16S rRNA genes of *Ca*. Electrothrix, ranging from 411 bp to 941 base pairs (bp), were obtained (file *Ca*. Electrothrix from Kolö Fjord").
 
 #### 4.1. Assembly rRNA sequences (all the rRNA files from SortMeRNA concatenated in the file P30612_129_16S_rRNA_FINAL.fasta.gz)
   
