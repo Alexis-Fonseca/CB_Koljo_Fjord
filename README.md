@@ -305,7 +305,8 @@ To extract sequences from the GFF file, use bedtools:
 		bedtools getfasta -fi transcripts.fasta -bed 16S_rRNA_sequences.gff -fo ALL_Koljo_16S_rRNA_assembled.fasta.fasta
 
 #### 4.4. Annotation of Ca. Electrothrix (cable bacteria)
-16S rRNA sequences were annotated using the SILVA_138.1_SSURef_NR99 and augmented with 33 16S rRNA gene sequences of different *Ca*. Electrothrix from NCBI (Document Cable bacteria reference). 
+16S rRNA sequences were annotated using the SILVA_138.1_SSURef_NR99 and augmented with 33 16S rRNA gene sequences of different *Ca*. Electrothrix from NCBI (Document Candidatus Electrothrix from NCBI_33.fasta). 
+
 **Alignment with BLASTN**
 
 
@@ -318,11 +319,37 @@ To extract sequences from the GFF file, use bedtools:
 		module load bioinfo-tools
 		module load blast/2.15.0+
 
-		blastn -task megablast -query ALL_Koljo_16S_rRNA_assembled.fasta -db SILVA_138.1_SSURef_NR99_PLUS_44_CB_Bacteria_no_cyano.fasta -out All_16S_Blast_SILVA_CB.txt -outfmt "6  qseqid 			length qlen sseqid evalue bitscore pident nident qcovs qstart qend" -max_target_seqs 1 -num_threads 20
+		blastn -task megablast -query ALL_Koljo_16S_rRNA_assembled.fasta -db SILVA_138.1_SSURef_NR99_PLUS_44_CB_Bacteria_no_cyano.fasta -out All_16S_Blast_SILVA_CB.txt -outfmt "6  				qseqid	length qlen sseqid evalue bitscore pident nident qcovs qstart qend" -max_target_seqs 1 -num_threads 20
 
 
-CONTINUE HERE
+	
+**All assembled 16S rRNAs were annotated. Among them, 13 partial 16S rRNA gene sequences from *Candidatus* Electrotrix were selected based on percentage identity, e-value, and query coverage (File:13_Ca_Electrotrhix_Koljö_Fjord).** 
 
+#### 4.5. Quantification of the 13 partial 16S rRNA gene sequences of Candidatus Electrotrix from Koljö Fjord
+
+The quantification was performed with the program CoverM and the mode "tpm" using .
+
+
+		#SBATCH -A naiss2023-22-1141
+		#SBATCH -p node
+		#SBATCH -n 1
+		#SBATCH -t 20:00:00	
+		#SBATCH -J CoverMKrist
+
+		module load bioinfo-tools
+		module load conda
+		export CONDA_ENVS_PATH=/proj/naiss2023-23-559/nobackup/alexis/conda
+		source conda_init.sh
+
+		conda activate coverm
+
+		for f in *_16S_rRNA_FINAL.fasta.gz; do
+    		r1=$f
+
+    		coverm contig --bam-file-cache-directory Bams --single $r1 -m tpm --min-covered-fraction 0 --discard-unmapped -t 20 --reference ALL_Koljo_16S_rRNA_assembled.fasta -o 					$r1"_CoverM_PTM_Kolko_16S_rRNA.tsv";
+  		done
+
+After this step, a tpm abundance matrix was generated (Ca_Electrotrhix_Abundance_Koljö_Fjord)
 
 ### 5. Obtaining the non-rRNA sequences (mRNA) with SortMeRNA
 
