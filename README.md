@@ -170,7 +170,7 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
 
 ### 3. Taxonomic classification by rRNA
 
-#### 3.2. Dividing the FLASH output files in two folders:  ExtendedFrags and No_combined. 
+#### 3.1. Dividing the FLASH output files in two folders:  ExtendedFrags and No_combined. 
 
     The assembled files were placed into the ExtendedFrags folder
     
@@ -236,27 +236,27 @@ Run SortmeRNA separately: using the merged files as a single file and in paired-
     
 **This will not be splitted and used as imput directly to SortmeRNA**
 
-#### 3.1. rRNA (SSU rRNA) reads extraction with SortMeRNA 4.3.6
+#### 3.2. rRNA (SSU rRNA) reads extraction with SortMeRNA 4.3.6
 
  - SILVA database (silva-bac-16s-id90.fasta; Kopylova et al., 2012) as reference.
 
-	> #!/bin/bash -l
+		#!/bin/bash -l
 
-	#SBATCH -A naiss2023-22-1280
-	#SBATCH -p node
-	#SBATCH -n 1
-	#SBATCH -t 03-00:00:00
-	#SBATCH -J sortKritine
+		#SBATCH -A naiss2023-22-1280
+		#SBATCH -p node
+		#SBATCH -n 1
+		#SBATCH -t 03-00:00:00
+		#SBATCH -J sortKritine
 
-	module load bioinfo-tools
-	module load SortMeRNA/4.3.4
+		module load bioinfo-tools
+		module load SortMeRNA/4.3.4
 
-	for f in *fastq.gz; do
-        	r1=$f;
+		for f in *fastq.gz; do
+        		r1=$f;
 
-        	sortmerna --ref $SORTMERNA_DBS/rRNA_databases/silva-bac-16s-id90.fasta --reads $r1 --fastx -threads 16 --workdir ${r1/fastq.gz/sortmerna_workdir_16SrRNA}/ --align
-    		ed ${r1/fastq.gz/aligned_16S_rRNA}
-		done
+        		sortmerna --ref $SORTMERNA_DBS/rRNA_databases/silva-bac-16s-id90.fasta --reads $r1 --fastx -threads 16 --workdir ${r1/fastq.gz/sortmerna_workdir_16SrRNA}/ --align
+    			ed ${r1/fastq.gz/aligned_16S_rRNA}
+			done
 
    	
 #### 3.2. Determine taxonomic composition
